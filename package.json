@@ -4,16 +4,21 @@
     "description": "",
     "main": "client.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js"
+        "test": "jest",
+        "backend-server": "node server.js",
+        "frontend-server": "http-server",
+        "webpack": "webpack"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
         "babel-cli": "^6.26.0",
+        "babel-jest": "^22.0.4",
         "babel-loader": "^7.1.2",
+        "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.6.1",
         "babel-preset-react": "^6.24.1",
+        "http-server": "^0.11.1",
         "jest": "^22.0.4",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
