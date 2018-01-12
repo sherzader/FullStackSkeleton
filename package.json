@@ -9,7 +9,7 @@
         "frontend-server": "http-server",
         "webpack": "webpack",
         "nodemon": "nodemon",
-        "server": "node_modules/.bin/nodemon server.js"
+        "server": "nodemon src/server.js"
     },
     "author": "",
     "license": "ISC",

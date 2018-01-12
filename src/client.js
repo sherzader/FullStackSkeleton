@@ -1,24 +1,24 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import fetch from "./utils/fetch";
+import fetch from "../utils/fetch";
 
-const ROUTE = "http://localhost:8888/api/gameState";
+const ROUTE = "http://localhost:8888/api/state";
 const HEADERS = {};
 
 class App extends Component {
     constructor() {
         super();
-        this.state = { gameState: {} };
+        this.state = { savedState: {} };
     }
     componentDidMount() {
-        this.getGameState();
+        this.getState();
     }
-    async getGameState() {
-        const gameState = await fetch(ROUTE, HEADERS);
-        this.setState({ gameState });
+    async getState() {
+        const savedState = await fetch(ROUTE, HEADERS);
+        this.setState({ savedState });
     }
     render() {
-        const { gameState } = this.state;
+        const { savedState } = this.state;
         return (
             <div>
                 <table>
@@ -27,10 +27,10 @@ class App extends Component {
                             <th>User</th>
                             <th>Result</th>
                         </tr>
-                        {Object.keys(gameState).map((user, i) => (
+                        {Object.keys(savedState).map((user, i) => (
                             <tr key={i}>
                                 <td>{user}</td>
-                                <td>{gameState[user]}</td>
+                                <td>{savedState[user]}</td>
                             </tr>
                         ))}
                     </tbody>
