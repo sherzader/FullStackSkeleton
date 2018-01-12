@@ -5,11 +5,10 @@
     "main": "client.js",
     "scripts": {
         "test": "jest",
-        "backend-server": "node server.js",
-        "frontend-server": "http-server",
         "webpack": "webpack",
-        "nodemon": "nodemon",
-        "server": "nodemon src/server.js"
+        "server": "nodemon src/server.js",
+        "backend-server": "node server.js",
+        "frontend-server": "http-server"
     },
     "author": "",
     "license": "ISC",
