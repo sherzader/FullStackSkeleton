@@ -8,7 +8,6 @@ const stateFile = path.join(__dirname, "../static", "state.json");
 const routes = {
     "/api/state": handleStateRequest,
     "/": handleStaticRequest,
-    "/index.html": handleStaticRequest,
     "/static/bundle.js": handleStaticRequest,
 };
 const port = 8888;
@@ -16,7 +15,7 @@ const server = http.createServer().listen(port);
 console.log("server listening on port ", port);
 
 /**
- * routes requests to corresponding handler,
+ * Routes requests to corresponding handler,
  * defined in routes.
  */
 server.on("request", (request, response) => {
@@ -25,58 +24,49 @@ server.on("request", (request, response) => {
         request.url === "/"
             ? indexFile
             : path.join(__dirname, "..", request.url);
-    console.log("requesting", request.url);
-    console.log("resolved path", requestURL);
+    let resource = "";
+
     if (routeHandler) {
-        routeHandler(requestURL, response);
-    } else {
-        response.end();
+        resource = routeHandler(requestURL, response);
+        response.write(resource);
     }
+    response.end();
 });
 
-function handleStaticRequest(request, response) {
-    fs.readFile(request, (err, file) => {
-        console.log("reading file...");
-
-        try {
-            response.write(file);
-        } catch (err) {
-            console.log(err);
-        }
-        console.log("wrote file...");
-        response.end();
-    });
-}
-function handleStateRequest(request, response) {
-    const stateString = JSON.stringify(readFromFile());
-    response.write(stateString);
-    response.end();
-}
-
 /**
- *  Writes object to stateFile, without overwriting.
- * @param {{}} moreState
+ * Returns requested resource.
+ * @param {String} path
  * @return {void}
  */
-function writeToFile(moreState) {
-    let jsonState = _readFile();
-    jsonState = Object.assign(jsonState, moreState);
-    fs.writeFileSync(stateFile, JSON.stringify(jsonState));
-}
-
-function _readFile() {
-    const state = fs.readFileSync(stateFile);
-    let jsonState = {};
-    if (state) {
-        jsonState = JSON.parse(state);
-    }
-    return jsonState;
+function handleStaticRequest(path) {
+    return fs.readFileSync(path);
 }
 
 /**
+ * Returns saved state.
+ * @param {String} path
+ * @return {String}
+ */
+function handleStateRequest(path) {
+    return JSON.stringify(getState());
+}
+
+/**
+ * Adds state to stateFile.
+ * @param {{}} newState
+ * @return {void}
+ */
+function saveState(newState) {
+    const savedState = getState();
+    const allState = Object.assign(savedState, newState);
+    fs.writeFileSync(stateFile, JSON.stringify(allState));
+}
+
+/**
+ * Gets the state saved in stateFile.
  * @return {{}} state
  */
-function readFromFile() {
-    console.log("saved state: ", _readFile());
-    return _readFile();
+function getState() {
+    const state = fs.readFileSync(stateFile) || "{}";
+    return JSON.parse(state);
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import fetch from "../utils/fetch";
 
-const ROUTE = "http://localhost:8888/api/state";
+const ROUTE = "/api/state";
 const HEADERS = {};
 
 class App extends Component {
@@ -23,10 +23,6 @@ class App extends Component {
             <div>
                 <table>
                     <tbody>
-                        <tr>
-                            <th>User</th>
-                            <th>Result</th>
-                        </tr>
                         {Object.keys(savedState).map((user, i) => (
                             <tr key={i}>
                                 <td>{user}</td>
