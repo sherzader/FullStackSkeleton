@@ -7,7 +7,9 @@
         "test": "jest",
         "backend-server": "node server.js",
         "frontend-server": "http-server",
-        "webpack": "webpack"
+        "webpack": "webpack",
+        "nodemon": "nodemon",
+        "server": "node_modules/.bin/nodemon server.js"
     },
     "author": "",
     "license": "ISC",
@@ -20,6 +22,7 @@
         "babel-preset-react": "^6.24.1",
         "http-server": "^0.11.1",
         "jest": "^22.0.4",
+        "nodemon": "^1.14.11",
         "react": "^16.2.0",
         "react-dom": "^16.2.0",
         "webpack": "^3.10.0"
